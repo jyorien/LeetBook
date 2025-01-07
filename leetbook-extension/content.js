@@ -37,17 +37,17 @@ function createModal() {
         <p>How difficult did you find the problem?</p>
         <div style="display: flex; column-gap: 20px;">
             <div>
-                <input id="confidence_easy" type="radio" name="confidence" value="easy" checked/>
+                <input id="confidence_easy" type="radio" name="confidence" value="3" checked/>
                 <label for="confidence_easy">Easy</label>
             </div>
 
             <div>
-                <input id="confidence_moderate" type="radio" name="confidence" value="moderate"/>
+                <input id="confidence_moderate" type="radio" name="confidence" value="2"/>
                 <label for="confidence_moderate">Moderate</label>
             </div>
 
             <div>
-                <input id="confidence_difficult" type="radio" name="confidence" value="difficult"/>
+                <input id="confidence_difficult" type="radio" name="confidence" value="1"/>
                 <label for="confidence_diffiuclt">Difficult</label>
             </div>
         </div>
@@ -115,7 +115,7 @@ function getProblemDetails(modal) {
     const problemDifficultyElement = document.body.getElementsByClassName("relative inline-flex items-center justify-center text-caption px-2 py-1 gap-1 rounded-full bg-fill-secondary")[0]
 
     const topics = topicElement.innerText
-    const problemNumber = problem[0].split(".")[0]
+    const problemNumber = Number(problem[0].split(".")[0])
     const problemName = problem[1].trim()
     const problemDifficulty = problemDifficultyElement.childNodes[0].textContent
 
@@ -144,7 +144,7 @@ function getProblemDetails(modal) {
 
     modalSubmitButton.addEventListener("click", () => {
         const comment = modalCommentElement.value
-        const confidence = document.querySelector('input[name="confidence"]:checked').value;
+        const confidence = Number(document.querySelector('input[name="confidence"]:checked').value)
         chrome.runtime.sendMessage({
             action: "submit",
             payload: {

@@ -16,7 +16,7 @@ type Problem struct {
 	ProblemTopics     string `json:"problemTopics"`
 	ProblemUrl        string `json:"problemUrl"`
 	ProblemDifficulty string `json:"problemDifficulty"`
-	ProblemConfidence string `json:"problemConfidence"`
+	ProblemConfidence int8   `json:"problemConfidence"`
 	ProblemComment    string `json:"problemComment"`
 }
 
