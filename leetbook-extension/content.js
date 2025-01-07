@@ -162,9 +162,9 @@ function getProblemDetails(modal) {
                 submissionStatusElement.style.display = "block"
                 submissionStatusElement.textContent = "Submission success! You may close the tab."
             } else {
-                console.error("Submission failed:", res.error);
+                console.error("Submission failed:", JSON.stringify(res.error));
                 submissionStatusElement.style.display = "block"
-                submissionStatusElement.textContent = `Submission failed! Error: ${res.error}`
+                submissionStatusElement.textContent = `Submission failed! Error: ${JSON.stringify(res.error)}`
             }
         })
         

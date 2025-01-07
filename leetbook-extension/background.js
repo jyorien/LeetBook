@@ -32,8 +32,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                 sendResponse({ success: true, data });
             })
             .catch((error) => {
-                console.error("Error during submission:", error);
-                sendResponse({ success: false, error });
+                console.error("Error during submission:", error.message);
+                sendResponse({ success: false, error: error.message });
             });
 
         })
