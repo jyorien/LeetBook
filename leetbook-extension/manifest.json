@@ -1,0 +1,26 @@
+{
+    "manifest_version": 3,
+    "name": "LeetBook",
+    "description": "Your LeetCode notebook to help you track your progress!",
+    "version": "1.0",
+    "permissions": ["storage"],
+    "action": {
+      "default_popup": "hello.html",
+      "default_icon": "hello_extensions.png"
+    },
+    "content_scripts": [
+        {
+            "matches": ["*://leetcode.com/problems/*", "*://www.leetcode.com/problems/*"],
+            "js": ["content.js"]
+        }
+    ],
+    "background": {
+      "service_worker": "background.js"
+    },
+    "host_permissions": [
+      "http://localhost:3000/*"
+    ],
+    "externally_connectable": {
+      "matches": ["*://mjhekolfaaebeonljkkjhldfjfejkhoa/hello.html"]
+    }
+  }
