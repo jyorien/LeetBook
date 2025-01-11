@@ -3,9 +3,15 @@ document.addEventListener("DOMContentLoaded", (e) => {
         const hash = window.location.hash
         const params = new URLSearchParams(hash.slice(1))
         const jwt = params.get("access_token")
-        console.log(jwt)
+        const refreshToken = params.get("refresh_token")
+        const expiresIn = params.get("expires_in")
+        const currentDate = new Date()
+        const expiryTime = new Date(currentDate.getTime() + expiresIn*1000)
+        
         chrome.storage.local.set({
-            "accessToken" : jwt
+            "accessToken" : jwt,
+            "refreshToken": refreshToken,
+            "expiryTime": expiryTime
         }, () => {
             const successtText = document.createElement("p")
             successtText.textContent = "Login success to LeetBook! You may now close the tab."
