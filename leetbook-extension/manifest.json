@@ -21,6 +21,6 @@
       "http://localhost:3000/*"
     ],
     "externally_connectable": {
-      "matches": ["*://hdodcdoimpmjlkdblcdkeakhgbnggoib/hello.html"]
+      "matches": ["*://cplpinmbaflanddaiffdhiabndgpkabn/hello.html"]
     }
   }
