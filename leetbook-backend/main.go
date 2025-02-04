@@ -22,6 +22,7 @@ func main() {
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/auth/login", HandleLogin)
+	mux.HandleFunc("/auth/refresh", HandleRefresh)
 	mux.HandleFunc("/api/submit", HandleSubmit)
 
 	port := fmt.Sprintf(":%s", os.Getenv("PORT"))

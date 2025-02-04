@@ -12,11 +12,12 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             }
 
             const currentTime = Date.now()
-            console.log("wha")
-            const bufferTime = 5 * 60 * 1000 // 5 mins
+            const bufferTime = 55 * 60 * 1000 // 5 mins
 
             if (expiresAt*1000 - currentTime <= bufferTime) { // refresh token first
-                
+                refresh(accessToken, refreshToken)
+                    .then(() => { 
+                        submit(accessToken, problemNumber, problemName, topics, link, problemDifficulty, confidence, comment, sendResponse)})
                 
             } else { // just send
                 submit(accessToken, problemNumber, problemName, topics, link, problemDifficulty, confidence, comment, sendResponse)
@@ -61,7 +62,7 @@ function submit(accessToken, problemNumber, problemName, topics, link, problemDi
 }
 
 function refresh(expiredAccessToken, refreshToken) {
-    fetch("http:/localhost:3000/api/refresh", {
+    return fetch("http:/localhost:3000/auth/refresh", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -72,6 +73,20 @@ function refresh(expiredAccessToken, refreshToken) {
     .then(res => res.json()) 
     .then(data => {
         // TODO: receive token, update the ext storage, then submit with new token
+        return new Promise((resolve, reject) => {
+            chrome.storage.local.set({
+                "accessToken": data["access_token"],
+                "expiresAt": data["expires_at"],
+                "refreshToken": data["refresh_token"]
+            }, () => {
+                if (chrome.runtime.lastError) {
+                    reject(chrome.runtime.lastError)
+                }
+                else {
+                    resolve()
+                }
+            })
+        })
     })
 
 }
